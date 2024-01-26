@@ -1,0 +1,10 @@
+[
+    {
+        "shortOption": "f",
+        "longOption": "wave-file",
+        "required": true,
+        "requireValue": true,
+        "defaultValue": "../conf/sherpa-ncnn.conf",
+        "description": "path to wave file which will be decode."
+    }
+]

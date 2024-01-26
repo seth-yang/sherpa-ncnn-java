@@ -1,0 +1,63 @@
+# the root directory of sherpa-ncnn models
+# default to ../models
+#sherpa.ncnn.model.dir                       = ../models
+
+# Model name predefined by sherpa-ncnn-java
+# default to 'default'
+#sherpa.ncnn.model.name                      =
+
+# enable using gpu
+# default to true
+#sherpa.ncnn.model.gpu.enabled               = true
+
+# The number of cpu threads used by the sherpa-ncnn model.
+# set to -1 to let sherpa-ncnn-java decide it.
+# default to -1
+#sherpa.ncnn.model.threads                   = -1
+
+# Path to sherpa-ncnn encoder's param file.
+#sherpa.ncnn.model.encoder.param             =
+
+# Path to sherpa-ncnn encoder's bin file.
+#sherpa.ncnn.model.encoder.bin               =
+
+# Path to sherpa-ncnn decoder's param file.
+#sherpa.ncnn.model.decoder.param             =
+
+# Path to sherpa-ncnn decoder's bin file.
+#sherpa.ncnn.model.decoder.bin               =
+
+# Path to sherpa-ncnn joiner's param file.
+#sherpa.ncnn.model.joiner.param              =
+
+# Path to sherpa-ncnn joiner's bin file.
+#sherpa.ncnn.model.joiner.bin                =
+
+# Path to sherpa-ncnn model tokens file.
+#sherpa.ncnn.model.tokens                    =
+
+# Audio sample rate. default to 6000 (16K Hz)
+#sherpa.ncnn.feature.sample.rate             = 16000
+
+# ??
+#sherpa.ncnn.feature.dim                     = 80
+
+# sherpa-ncnn audio decoding method. default to greedy_search
+#sherpa.ncnn.decoder.method                  = greedy_search
+
+# Number of active path for sherpa-ncnn audio decoding. default to 4
+#sherpa.ncnn.decoder.active.paths            = 4
+
+# enable auto endpoint-detect or not. default to true
+#sherpa.ncnn.asr.endpoint.enabled            = true
+
+#
+#sherpa.ncnn.asr.rule1.min.trailing.silence  = 2.4
+#sherpa.ncnn.asr.rule2.min.trailing.silence  = 1.4
+#sherpa.ncnn.asr.rule3.min.utterance.length  = 20
+
+# Path to hot-words file
+#sherpa.ncnn.asr.hot-words.file              =
+
+#
+#sherpa.ncnn.asr.hot-words.score             = 1.5
