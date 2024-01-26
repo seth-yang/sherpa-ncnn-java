@@ -15,6 +15,7 @@
         <module>modules/sherpa-ncnn-linux-x86_64/pom.xml</module>
         <module>modules/sherpa-ncnn-linux-aarch64</module>
         <module>modules/sherpa-ncnn-linux-armv7</module>
+        <module>modules/sherpa-ncnn-win32-x86_64</module>
     </modules>
 
     <properties>

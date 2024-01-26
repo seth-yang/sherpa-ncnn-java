@@ -13,16 +13,17 @@ public class SherpaHelper {
 
     public static final String MODEL_DIR_KEY = "sherpa.ncnn.model.dir";
     private static String MODEL_ROOT;
-/*
-    static {
-        Properties props = System.getProperties ();
-        if (props.containsKey (MODEL_DIR_KEY)) {
-            MODEL_ROOT = props.getProperty (MODEL_DIR_KEY);
-        } else {
-            MODEL_ROOT = "../models";
+
+    /*
+        static {
+            Properties props = System.getProperties ();
+            if (props.containsKey (MODEL_DIR_KEY)) {
+                MODEL_ROOT = props.getProperty (MODEL_DIR_KEY);
+            } else {
+                MODEL_ROOT = "../models";
+            }
         }
-    }
-*/
+    */
     public static SherpaNcnn initRecognizer (int type) {
         System.out.print ("initialing recognizer ... ");
         long start = System.currentTimeMillis ();
@@ -57,10 +58,10 @@ public class SherpaHelper {
     public static void initNcnnModel (String... args) throws IOException {
         String modelDir = null;
         if (args.length > 0) {
-            for (int i = 0; i < args.length; i ++) {
+            for (int i = 0; i < args.length; i++) {
                 String option = args[i];
                 if ("-m".equals (option) && args.length > i + 1) {
-                    modelDir = args [i + 1];
+                    modelDir = args[i + 1];
                     break;
                 } else if (option.startsWith ("--model-dir=")) {
                     modelDir = option.substring ("--model-dir=".length ());
@@ -91,15 +92,23 @@ public class SherpaHelper {
 
     public static ModelConfig getModelConfig (int type, boolean useGPU) {
         switch (type) {
-            case 0 : return createDefaultModelConfig (useGPU);
-            case 1 : return createTransducerModelConfig (useGPU);
-            case 2 : return createBilingualZhEnModelConfig (useGPU);
-            case 3 : return createStreamingZipFormerEnModelConfig (useGPU);
-            case 4 : return createStreamingZipFormerFrModelConfig (useGPU);
-            case 5 : return createStreamingZipFormerBilingualZhEnModelConfig (useGPU);
-            case 6 : return createStreamingZipFormerSmallBilingualZhEnModelConfig (useGPU);
+            case 0:
+                return createDefaultModelConfig (useGPU);
+            case 1:
+                return createTransducerModelConfig (useGPU);
+            case 2:
+                return createBilingualZhEnModelConfig (useGPU);
+            case 3:
+                return createStreamingZipFormerEnModelConfig (useGPU);
+            case 4:
+                return createStreamingZipFormerFrModelConfig (useGPU);
+            case 5:
+                return createStreamingZipFormerBilingualZhEnModelConfig (useGPU);
+            case 6:
+                return createStreamingZipFormerSmallBilingualZhEnModelConfig (useGPU);
 
-            default: return null;
+            default:
+                return null;
         }
     }
 
@@ -111,20 +120,21 @@ public class SherpaHelper {
         switch (type) {
             case Default:
                 return createDefaultModelConfig (useGPU);
-            case Transducer :
+            case Transducer:
                 return createTransducerModelConfig (useGPU);
-            case BilingualZhEn :
+            case BilingualZhEn:
                 return createBilingualZhEnModelConfig (useGPU);
-            case StreamingZipFormerEn :
+            case StreamingZipFormerEn:
                 return createStreamingZipFormerEnModelConfig (useGPU);
-            case StreamingZipFormerFr :
+            case StreamingZipFormerFr:
                 return createStreamingZipFormerFrModelConfig (useGPU);
-            case StreamingZipFormerBilingualZhEn :
+            case StreamingZipFormerBilingualZhEn:
                 return createStreamingZipFormerBilingualZhEnModelConfig (useGPU);
-            case StreamingZipFormerSmallBilingualZhEn :
+            case StreamingZipFormerSmallBilingualZhEn:
                 return createStreamingZipFormerSmallBilingualZhEnModelConfig (useGPU);
 
-            default: return null;
+            default:
+                return null;
         }
     }
 

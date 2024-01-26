@@ -29,7 +29,7 @@ public class RecognizeServer {
         ModelType type = ModelType.StreamingZipFormerSmallBilingualZhEn;
         String txt_port = null, txt_type = null;
 
-        for (int i = 0; i < args.length; i ++) {
+        for (int i = 0; i < args.length; i++) {
             String part = args[i];
             if ("-h".equals (part) || "--help".equals (part)) {
                 System.out.println ("Usage: ");
@@ -51,7 +51,7 @@ public class RecognizeServer {
                 if (i == args.length - 1) {
                     System.err.println ("arg: type needs value. use the default value: StreamingZipFormerSmallBilingualZhEn");
                 } else {
-                    i ++;
+                    i++;
                     txt_type = args[i];
                 }
             } else if (part.endsWith ("--model-type=")) {
@@ -221,10 +221,11 @@ public class RecognizeServer {
     private static final class MessageWrapper {
         String pattern, name, type;
         Object[] args;
+
         MessageWrapper (String pattern, Object... args) {
             this.pattern = pattern;
-            this.args    = args;
-            this.name    = Thread.currentThread ().getName ();
+            this.args = args;
+            this.name = Thread.currentThread ().getName ();
         }
     }
 }

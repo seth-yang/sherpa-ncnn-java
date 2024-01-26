@@ -85,7 +85,7 @@ public class MicTest {
                     short[] shorts = new short[samples.capacity ()];
                     float[] floats = new float[samples.capacity ()];
                     samples.get (shorts);
-                    for (int i = 0; i < floats.length; i ++) {
+                    for (int i = 0; i < floats.length; i++) {
                         floats[i] = shorts[i] / 32768f;
                     }
 

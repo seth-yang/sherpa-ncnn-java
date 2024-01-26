@@ -21,7 +21,7 @@ public class TestMicClient {
 
     public TestMicClient (String server, int port) {
         this.server = server;
-        this.port   = port;
+        this.port = port;
     }
 
     public void record () throws IOException {
@@ -73,16 +73,16 @@ public class TestMicClient {
     public static void main (String[] args) throws IOException {
         // $0 -s <server-host>|--server=<server-host> [-p <server-port>|--port=<server-port>] [-h|--help]
         String server = null, s_port = null;
-        for (int i = 0; i < args.length; i ++) {
+        for (int i = 0; i < args.length; i++) {
             String p = args[i];
             if ("-s".equals (p)) {
-                i ++;
+                i++;
                 server = args[i];
             } else if (p.startsWith ("--server=")) {
                 server = p.substring ("--server=".length ());
             } else if ("-p".equals (p)) {
-                i ++;
-                s_port = args [i];
+                i++;
+                s_port = args[i];
             } else if (p.startsWith ("--port=")) {
                 s_port = p.substring ("--port=".length ());
             } else if ("-h".equals (p) || "--help".equals (p)) {

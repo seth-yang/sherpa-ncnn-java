@@ -118,7 +118,7 @@ public class CliHelper {
         try (InputStream in = loader.getResourceAsStream (name)) {
             if (in != null) {
                 BufferedReader reader = new BufferedReader (new InputStreamReader (in, StandardCharsets.UTF_8));
-                List<Argument> list   = g.fromJson (reader, Argument.AS_LIST);
+                List<Argument> list = g.fromJson (reader, Argument.AS_LIST);
                 if (list != null && !list.isEmpty ()) {
                     list.forEach (item -> {
                         String key = item.shortOption;

@@ -9,12 +9,12 @@ import java.nio.file.Paths;
 public class TestClient {
     public static void main (String[] args) throws Exception {
         final int N = 6400;
-        byte[]  raw = new byte[N];
+        byte[] raw = new byte[N];
         Path path = Paths.get (args[0]);
 
         final Object LOCKER = new byte[0];
 
-        for (int i = 0; i < 5; i ++) {
+        for (int i = 0; i < 5; i++) {
             try (Socket socket = new Socket ("127.0.0.1", 56789)) {
                 Thread receiver = getThread (socket, LOCKER);
                 receiver.start ();

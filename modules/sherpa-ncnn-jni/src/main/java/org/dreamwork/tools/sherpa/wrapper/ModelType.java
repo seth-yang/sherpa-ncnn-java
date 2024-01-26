@@ -24,6 +24,6 @@ public enum ModelType {
         if (index <= 0 || index > values ().length) {
             return Default;
         }
-        return values() [index];
+        return values ()[index];
     }
 }

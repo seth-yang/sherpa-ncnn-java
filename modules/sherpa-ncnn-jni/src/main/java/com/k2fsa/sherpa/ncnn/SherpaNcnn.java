@@ -58,18 +58,28 @@ public class SherpaNcnn implements Closeable {
     private native long newFromFile (RecognizerConfig config);
 
     private native void delete (long ptr);
+
     private native void acceptWaveform (long ptr, float[] samples, float sampleRate);
-    private native void inputFinished(long ptr);
-    private native boolean isReady(long ptr);
-    private native void decode(long ptr);
-    private native boolean isEndpoint(long ptr);
-    private native void reset(long ptr, boolean recreate);
-    private native String getText(long ptr);
+
+    private native void inputFinished (long ptr);
+
+    private native boolean isReady (long ptr);
+
+    private native void decode (long ptr);
+
+    private native boolean isEndpoint (long ptr);
+
+    private native void reset (long ptr, boolean recreate);
+
+    private native String getText (long ptr);
 
     private static void expandNativeLibs () throws IOException {
         String root = System.getProperty ("user.home") + "/.sherpa-ncnn/native-libs";
-        String os   = System.getProperty ("os.name").toLowerCase ();
+        String os = System.getProperty ("os.name").toLowerCase ();
         String arch = System.getProperty ("os.arch");
+        if (os.toLowerCase ().contains ("windows")) {
+            os = "win32";
+        }
         if ("amd64".equals (arch)) {
             arch = "x86-64";
         }
@@ -77,7 +87,7 @@ public class SherpaNcnn implements Closeable {
         if (Files.notExists (dir)) {
             Files.createDirectories (dir);
             ClassLoader loader = SherpaNcnn.class.getClassLoader ();
-            String prefix = "native-libs/" + os + '/' + arch ;
+            String prefix = "native-libs/" + os + '/' + arch;
             try (InputStream in = loader.getResourceAsStream (prefix)) {
                 if (in != null) {
                     BufferedReader reader = new BufferedReader (new InputStreamReader (in));

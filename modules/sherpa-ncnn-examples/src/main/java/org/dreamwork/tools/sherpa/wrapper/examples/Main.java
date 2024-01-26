@@ -1,7 +1,6 @@
 package org.dreamwork.tools.sherpa.wrapper.examples;
 
 import com.google.gson.Gson;
-import org.dreamwork.app.bootloader.ApplicationBootloader;
 import org.dreamwork.app.bootloader.IBootable;
 import org.dreamwork.cli.Argument;
 import org.dreamwork.cli.ArgumentParser;
@@ -18,7 +17,8 @@ import java.util.List;
 @IBootable (argumentDef = "sherpa-ncnn-examples.json")
 public class Main {
     public static void main (String[] args) throws Exception {
-        ApplicationBootloader.run (Main.class, args);
+        System.out.println (System.getProperty ("os.name"));
+//        ApplicationBootloader.run (Main.class, args);
     }
 
     public void start (IConfiguration conf) {

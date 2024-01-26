@@ -1,7 +1,5 @@
 package com.k2fsa.sherpa.ncnn;
 
-import java.util.Properties;
-
 public class ModelConfig {
     private String encoderParam, encoderBin, decoderParam, decoderBin, joinerParam,
             joinerBin, tokens;

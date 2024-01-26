@@ -46,7 +46,7 @@ public class DecodeFileDemo {
         SherpaConfig conf = CliHelper.convert (parser);
 
         try (SherpaNcnn sherpa = SherpaHelper.initRecognizer (conf)) {
-            for (int i = 0; i < 10; i ++) {
+            for (int i = 0; i < 10; i++) {
                 System.out.printf ("round %02d%n", i + 1);
                 decode (sherpa, path);
                 System.out.println ();
@@ -57,8 +57,8 @@ public class DecodeFileDemo {
     private static void decode (SherpaNcnn sherpa, Path path) throws IOException {
         try (InputStream in = Files.newInputStream (path)) {
             final int N = 6400;
-            byte[]  raw     = new byte[N];
-            float[] samples = new float[N/2];
+            byte[] raw = new byte[N];
+            float[] samples = new float[N / 2];
             long start = System.currentTimeMillis ();
             while (in.read (raw, 0, N) > 0) {
                 for (int i = 0; i < N; i += 2) {
@@ -77,7 +77,7 @@ public class DecodeFileDemo {
                 sherpa.decode ();
             }
             String text = sherpa.getText ();
-            if (text!= null && !text.isEmpty ()) {
+            if (text != null && !text.isEmpty ()) {
                 System.out.println (text);
             }
             System.out.printf ("recognize %s takes %d ms.%n", path, System.currentTimeMillis () - start);
