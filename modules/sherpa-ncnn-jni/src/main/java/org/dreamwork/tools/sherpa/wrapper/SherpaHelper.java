@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class SherpaHelper {
-    private static final int DEFAULT_THREAD_NUMBERS = 3;
+    private static int THREAD_NUMBERS = 3;
 
     public static final String MODEL_DIR_KEY = "sherpa.ncnn.model.dir";
     private static String MODEL_ROOT;
@@ -44,6 +44,14 @@ public class SherpaHelper {
     public static SherpaNcnn initRecognizer (SherpaConfig conf) {
         System.out.println ("initialing recognizer ...");
         MODEL_ROOT = conf.basedir;
+        if (conf.threads <= 0) {
+            int count = Runtime.getRuntime ().availableProcessors ();
+            THREAD_NUMBERS = count / 2;
+            if (THREAD_NUMBERS < 1) {
+                THREAD_NUMBERS = 1;
+            }
+        }
+
         FeatureExtractorConfig featConfig = new FeatureExtractorConfig (conf.sampleRate, conf.featureDim);
         ModelConfig modelConfig = getModelConfig (conf.modelName, conf.useGpu);
         DecoderConfig decoderConfig = new DecoderConfig (conf.decoderMethod, conf.activePaths);
@@ -169,7 +177,7 @@ public class SherpaHelper {
         config.setJoinerParam (modelDir + "/joiner_jit_trace-pnnx.ncnn.int8.param");
         config.setJoinerBin (modelDir + "/joiner_jit_trace-pnnx.ncnn.int8.bin");
         config.setTokens (modelDir + "/tokens.txt");
-        config.setNumThreads (DEFAULT_THREAD_NUMBERS);
+        config.setNumThreads (THREAD_NUMBERS);
         config.setUseGPU (useGPU);
 
         return config;
@@ -269,9 +277,9 @@ public class SherpaHelper {
         config.setJoinerParam (name + "/joiner_jit_trace-pnnx.ncnn.param");
         config.setJoinerBin (name + "/joiner_jit_trace-pnnx.ncnn.bin");
         config.setTokens (name + "/tokens.txt");
-        config.setNumThreads (DEFAULT_THREAD_NUMBERS);
+        config.setNumThreads (THREAD_NUMBERS);
         config.setUseGPU (useGPU);
-
+        System.out.println ("asr will work on " + THREAD_NUMBERS + " threads.");
         return config;
     }
 }

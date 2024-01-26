@@ -103,7 +103,7 @@
         "description": "sherpa-ncnn audio decoding method."
     },
     {
-        "shortPath": "p",
+        "shortOption": "p",
         "longOption": "active-paths",
         "requireValue": true,
         "defaultValue": "4",

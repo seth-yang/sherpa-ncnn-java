@@ -24,7 +24,7 @@ public class JavaAudioHelper {
 
         // check system support such data format
         if (!AudioSystem.isLineSupported (info)) {
-            System.out.println (info + " not supported.");
+            System.err.println (info + " not supported.");
             return null;
         }
 

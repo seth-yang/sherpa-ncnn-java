@@ -1,0 +1,10 @@
+[
+    {
+        "shortOption": "P",
+        "longOption": "port",
+        "requireValue": true,
+        "defaultValue": "56789",
+        "description": "The port the ASR service will listen on",
+        "propKey": "sherpa.ncnn.demo.recognize.server.port"
+    }
+]

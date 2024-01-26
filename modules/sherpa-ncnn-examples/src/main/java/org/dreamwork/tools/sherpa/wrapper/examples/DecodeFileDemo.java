@@ -20,7 +20,7 @@ public class DecodeFileDemo {
         }
         // parse the command line arguments
         parser.parse (args);
-        // check if necessary parameters exist.
+        // check if mandatory parameters exist.
         if (CliHelper.isRequiredArgMissing (parser)) {
             System.out.println ("Usage: java -cp $CLASSPATH DecodeFileDemo options, ");
             System.out.println ("which options can be: ");

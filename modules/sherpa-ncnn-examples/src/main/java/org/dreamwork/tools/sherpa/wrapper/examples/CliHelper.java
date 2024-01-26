@@ -17,10 +17,12 @@ public class CliHelper {
     private static final ClassLoader loader = CliHelper.class.getClassLoader ();
     private static final Gson g = new Gson ();
 
-    public static ArgumentParser getArgumentsParser (String definition) throws IOException {
+    public static ArgumentParser getArgumentsParser (String... definitions) throws IOException {
         Map<String, Argument> map = new HashMap<> ();
         loadArgumentDefinition ("sherpa-ncnn-examples", map);
-        loadArgumentDefinition (definition, map);
+        for (String definition : definitions) {
+            loadArgumentDefinition (definition, map);
+        }
         if (!map.values ().isEmpty ()) {
             List<Argument> args = new ArrayList<> (map.values ());
             return new ArgumentParser (args);
