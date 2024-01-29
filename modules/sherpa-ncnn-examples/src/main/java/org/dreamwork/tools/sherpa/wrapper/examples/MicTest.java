@@ -13,7 +13,7 @@ import static org.dreamwork.tools.asr.JavaAudioHelper.initMic;
 
 public class MicTest {
     public static void main (String[] args) throws Exception {
-        ArgumentParser parser = CliHelper.getArgumentsParser ("decode-file-demo.json");
+        ArgumentParser parser = CliHelper.getArgumentsParser ();
         if (parser == null) {
             System.err.println ("cannot parse command line arguments");
             System.exit (-1);
