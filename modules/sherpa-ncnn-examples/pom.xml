@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.dreamwork</groupId>
             <artifactId>dreamwork-base</artifactId>
-            <version>3.1.3</version>
+            <version>3.1.4</version>
         </dependency>
         <dependency>
             <groupId>org.dreamwork</groupId>
