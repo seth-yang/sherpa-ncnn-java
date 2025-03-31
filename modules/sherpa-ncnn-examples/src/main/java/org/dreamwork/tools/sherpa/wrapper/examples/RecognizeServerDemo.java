@@ -6,7 +6,10 @@ import org.dreamwork.tools.sherpa.wrapper.SherpaConfig;
 import org.dreamwork.tools.sherpa.wrapper.SherpaHelper;
 import org.dreamwork.tools.sherpa.wrapper.examples.utils.Logger;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -84,7 +87,7 @@ public class RecognizeServerDemo {
                 PrintWriter writer = new PrintWriter (out, true);
 
                 int b1 = in.read (), b2 = in.read ();
-                int size = ((b1 & 0xff) << 8) | (b2 & 0xff), length;
+                int size = ((b1 & 0xff) << 8) | (b2 & 0xff);
                 logger.info ("buff size = %d", size);
                 writer.println ("::Ready::");
                 out.flush ();
@@ -116,29 +119,21 @@ public class RecognizeServerDemo {
                 if (System.currentTimeMillis () - lastReceivedAt > 500) {   // timeout 500ms.
                     logger.info ("timed out after 500 ms.");
                     watching = false;
-                    // reply the recognize result, it there's a result.
+                    // reply the recognize result, if there's a result.
                     String text = recognizer.getText ();
                     if (text != null && !text.isEmpty ()) {
                         writer.println (text);
                         writer.flush ();
                     }
-                    // tell the client, i'm done 300 ms later
-                    try {
-                        Thread.sleep (300);
-                    } catch (InterruptedException ignore) {
-                        // who's care
-                    }
+                    // tell the client, I'm done 300 ms later
+                    delay (300);
                     writer.println ("::Finish::");
                     writer.flush ();
                     // reset the recognizer and waiting the next request
                     recognizer.reset (false);
                     break;
                 } else {
-                    try {
-                        Thread.sleep (50);  // check every 50 ms.
-                    } catch (InterruptedException ignore) {
-                        // nobody cares, either
-                    }
+                    delay (50); // check every 50ms.
                 }
             }
             logger.info ("watcher killed.");
@@ -179,5 +174,11 @@ public class RecognizeServerDemo {
                 watching = false; // kill the watcher
             }
         }
+    }
+
+    private static void delay (long milliseconds) {
+        try {
+            Thread.sleep (milliseconds);
+        } catch (InterruptedException ignore) {}
     }
 }

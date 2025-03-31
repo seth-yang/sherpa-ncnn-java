@@ -1,6 +1,7 @@
 package org.dreamwork.tools.sherpa.wrapper.examples;
 
 import org.dreamwork.cli.ArgumentParser;
+import org.dreamwork.util.StringUtil;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.TargetDataLine;
@@ -32,28 +33,47 @@ public class MicClientDemo {
             if (recorder != null) {
                 InputStream in = socket.getInputStream ();
                 OutputStream out = socket.getOutputStream ();
-                reader = new BufferedReader (new InputStreamReader (in));
-
-                thread = new Thread (this::receive);
 
                 int size = recorder.getBufferSize () / 8 * format.getFrameSize (), length;
                 byte[] buff = new byte[size];
 
-                recorder.start ();
-                System.out.println ("I'm listening, please speak to me.");
-                System.out.println ("You can say \"再见\", \"拜拜\" or \"Goodbye\" to exit the program");
-                while (running && (length = recorder.read (buff, 0, size)) != -1) {
-                    out.write (buff, 0, length);
-                    out.flush ();
+                // handshake
+                byte[] header = {
+                        (byte) 0xca, (byte) 0xfe,
+                        (byte) (size >> 24), (byte) (size >> 16), (byte) (size >> 8), (byte) (size & 0xff)
+                };
+                out.write (header);
+                out.flush ();
+                System.out.printf ("packet: %s send.%n", StringUtil.format (header));
+
+                byte[] data = new byte[3];
+                int read = in.read (data);
+                if (read != 3 || (data[0] & 0xff) != 0xba || (data[1] & 0xff) != 0xbe || data[2] != 0) {
+                    System.err.println ("handshake failed");
+                    System.err.printf ("expect 0xbabe00, but got 0x%02x%02x%02x%n", data[0], data[1], data[2]);
+                } else { // handshake success
+                    reader = new BufferedReader (new InputStreamReader (in));
+                    thread = new Thread (this::receive);
+                    thread.start ();
+
+                    recorder.start ();
+                    System.out.println ("I'm listening, please speak to me.");
+                    System.out.println ("You can say \"再见\", \"拜拜\" or \"Goodbye\" to exit the program");
+                    while (running && (length = recorder.read (buff, 0, size)) != -1) {
+                        out.write (buff, 0, length);
+                        out.flush ();
+                    }
                 }
             }
         }
     }
 
     private void receive () {
+        System.out.println ("starting receiving thread ... ");
         try {
-            while (running && !thread.isInterrupted ()) {
+            while (running/* && !thread.isInterrupted ()*/) {
                 String line = reader.readLine ();
+                System.out.println ("line = " + line);
                 if (line != null && !line.isEmpty ()) {
                     System.out.println (line);
 
@@ -69,7 +89,7 @@ public class MicClientDemo {
                 }
             }
         } catch (IOException ex) {
-            ex.printStackTrace ();
+            ex.printStackTrace (System.err);
         }
     }
 
@@ -88,7 +108,7 @@ public class MicClientDemo {
             System.exit (0);
         }
 
-        String server = "127.0.0.1", s_port = null;
+        String server = "10.247.1.31", s_port;
         int port = 56789;
         if (parser.isArgPresent ('H')) {
             server = parser.getValue ('H');
@@ -97,7 +117,7 @@ public class MicClientDemo {
             s_port = parser.getValue ('P');
             port = Integer.parseInt (s_port);
         }
-        System.out.printf ("connecting to %s:%d...", server, port);
+        System.out.printf ("connecting to %s:%d...%n", server, port);
 
         new MicClientDemo (server, port).record ();
     }
