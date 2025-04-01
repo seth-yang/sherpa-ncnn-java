@@ -7,23 +7,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.util.Properties;
+@SuppressWarnings ("unused")
 public class SherpaHelper {
     private static int THREAD_NUMBERS = 3;
 
     public static final String MODEL_DIR_KEY = "sherpa.ncnn.model.dir";
     private static String MODEL_ROOT;
 
-    /*
-        static {
-            Properties props = System.getProperties ();
-            if (props.containsKey (MODEL_DIR_KEY)) {
-                MODEL_ROOT = props.getProperty (MODEL_DIR_KEY);
-            } else {
-                MODEL_ROOT = "../models";
-            }
-        }
-    */
     public static SherpaNcnn initRecognizer (int type) {
         System.out.print ("initialing recognizer ... ");
         long start = System.currentTimeMillis ();
@@ -149,21 +140,6 @@ public class SherpaHelper {
     // type = 0
     private static ModelConfig createDefaultModelConfig (boolean useGPU) {
         return createModelConfig ("sherpa-ncnn-2022-09-30", useGPU);
-/*
-        ModelConfig config = new ModelConfig ();
-        String modelDir = MODEL_ROOT + "/sherpa-ncnn-2022-09-30";
-        config.encoderParam = modelDir + "/encoder_jit_trace-pnnx.ncnn.param";
-        config.encoderBin = modelDir + "/encoder_jit_trace-pnnx.ncnn.bin";
-        config.decoderParam = modelDir + "/decoder_jit_trace-pnnx.ncnn.param";
-        config.decoderBin = modelDir + "/decoder_jit_trace-pnnx.ncnn.bin";
-        config.joinerParam = modelDir + "/joiner_jit_trace-pnnx.ncnn.param";
-        config.joinerBin = modelDir + "/joiner_jit_trace-pnnx.ncnn.bin";
-        config.tokens = modelDir + "/tokens.txt";
-        config.numThreads = DEFAULT_THREAD_NUMBERS;
-        config.useGPU = useGPU;
-
-        return config;
-*/
     }
 
     // type = 1
@@ -186,80 +162,21 @@ public class SherpaHelper {
     // type = 2
     private static ModelConfig createBilingualZhEnModelConfig (boolean useGPU) {
         return createModelConfig ("sherpa-ncnn-streaming-zipformer-bilingual-zh-en-2023-02-13", useGPU);
-/*
-        String modelDir = MODEL_ROOT + "/sherpa-ncnn-streaming-zipformer-bilingual-zh-en-2023-02-13";
-        ModelConfig config = new ModelConfig ();
-        config.encoderParam = modelDir + "/encoder_jit_trace-pnnx.ncnn.param";
-        config.encoderBin = modelDir + "/encoder_jit_trace-pnnx.ncnn.bin";
-        config.decoderParam = modelDir + "/decoder_jit_trace-pnnx.ncnn.param";
-        config.decoderBin = modelDir + "/decoder_jit_trace-pnnx.ncnn.bin";
-        config.joinerParam = modelDir + "/joiner_jit_trace-pnnx.ncnn.param";
-        config.joinerBin = modelDir + "/joiner_jit_trace-pnnx.ncnn.bin";
-        config.tokens = modelDir + "/tokens.txt";
-        config.numThreads = DEFAULT_THREAD_NUMBERS;
-        config.useGPU = useGPU;
-
-        return config;
-*/
     }
 
     // type =3
     private static ModelConfig createStreamingZipFormerEnModelConfig (boolean useGPU) {
         return createModelConfig ("sherpa-ncnn-streaming-zipformer-en-2023-02-13", useGPU);
-/*
-        String modelDir = MODEL_ROOT + "/sherpa-ncnn-streaming-zipformer-en-2023-02-13";
-        ModelConfig config = new ModelConfig ();
-        config.encoderParam = modelDir + "/encoder_jit_trace-pnnx.ncnn.param";
-        config.encoderBin = modelDir + "/encoder_jit_trace-pnnx.ncnn.bin";
-        config.decoderParam = modelDir + "/decoder_jit_trace-pnnx.ncnn.param";
-        config.decoderBin = modelDir + "/decoder_jit_trace-pnnx.ncnn.bin";
-        config.joinerParam = modelDir + "/joiner_jit_trace-pnnx.ncnn.param";
-        config.joinerBin = modelDir + "/joiner_jit_trace-pnnx.ncnn.bin";
-        config.tokens = modelDir + "/tokens.txt";
-        config.numThreads = DEFAULT_THREAD_NUMBERS;
-        config.useGPU = useGPU;
-
-        return config;
-*/
     }
 
     // type = 4
     private static ModelConfig createStreamingZipFormerFrModelConfig (boolean useGPU) {
         return createModelConfig ("sherpa-ncnn-streaming-zipformer-fr-2023-04-14", useGPU);
-/*
-        String modelDir = MODEL_ROOT + "/sherpa-ncnn-streaming-zipformer-fr-2023-04-14";
-        ModelConfig config = new ModelConfig ();
-        config.encoderParam = modelDir + "/encoder_jit_trace-pnnx.ncnn.param";
-        config.encoderBin = modelDir + "/encoder_jit_trace-pnnx.ncnn.bin";
-        config.decoderParam = modelDir + "/decoder_jit_trace-pnnx.ncnn.param";
-        config.decoderBin = modelDir + "/decoder_jit_trace-pnnx.ncnn.bin";
-        config.joinerParam = modelDir + "/joiner_jit_trace-pnnx.ncnn.param";
-        config.joinerBin = modelDir + "/joiner_jit_trace-pnnx.ncnn.bin";
-        config.tokens = modelDir + "/tokens.txt";
-        config.numThreads = DEFAULT_THREAD_NUMBERS;
-        config.useGPU = useGPU;
-        return config;
-*/
     }
 
     // type = 5
     private static ModelConfig createStreamingZipFormerBilingualZhEnModelConfig (boolean useGPU) {
         return createModelConfig ("sherpa-ncnn-streaming-zipformer-bilingual-zh-en-2023-02-13", useGPU);
-/*
-        String modelDir = MODEL_ROOT + "/sherpa-ncnn-streaming-zipformer-bilingual-zh-en-2023-02-13";
-        ModelConfig config = new ModelConfig ();
-        config.encoderParam = modelDir + "/encoder_jit_trace-pnnx.ncnn.param";
-        config.encoderBin = modelDir + "/encoder_jit_trace-pnnx.ncnn.bin";
-        config.decoderParam = modelDir + "/decoder_jit_trace-pnnx.ncnn.param";
-        config.decoderBin = modelDir + "/decoder_jit_trace-pnnx.ncnn.bin";
-        config.joinerParam = modelDir + "/joiner_jit_trace-pnnx.ncnn.param";
-        config.joinerBin = modelDir + "/joiner_jit_trace-pnnx.ncnn.bin";
-        config.tokens = modelDir + "/tokens.txt";
-        config.numThreads = DEFAULT_THREAD_NUMBERS;
-        config.useGPU = useGPU;
-
-        return config;
-*/
     }
 
     // type = 6
@@ -281,5 +198,117 @@ public class SherpaHelper {
         config.setUseGPU (useGPU);
         System.out.println ("asr will work on " + THREAD_NUMBERS + " threads.");
         return config;
+    }
+
+    public static SherpaConfig fromProperties (Properties props) {
+        SherpaConfig c = new SherpaConfig ();
+        if (props.containsKey ("sherpa.ncnn.model.dir")) {
+            c.basedir = props.getProperty ("sherpa.ncnn.model.dir");
+        }
+        if (props.containsKey ("sherpa.ncnn.model.gpu.disabled")) {
+            c.useGpu = !getBoolean (props,"sherpa.ncnn.model.gpu.disabled");
+        }
+        if (props.containsKey ("sherpa.ncnn.model.name")) {
+            c.modelName = props.getProperty ("sherpa.ncnn.model.name");
+        }
+        if (props.containsKey ("sherpa.ncnn.model.threads")) {
+            c.threads = getInteger (props,"sherpa.ncnn.model.threads", -1);
+        }
+        if (props.containsKey ("sherpa.ncnn.model.encoder.param")) {
+            c.encoderParam = props.getProperty ("sherpa.ncnn.model.encoder.param");
+        }
+        if (props.containsKey ("sherpa.ncnn.model.encoder.bin")) {
+            c.encoderBin = props.getProperty ("sherpa.ncnn.model.encoder.bin");
+        }
+        if (props.containsKey ("sherpa.ncnn.model.decoder.param")) {
+            c.decoderParam = props.getProperty ("sherpa.ncnn.model.decoder.param");
+        }
+        if (props.containsKey ("sherpa.ncnn.model.decoder.bin")) {
+            c.decoderBin = props.getProperty ("sherpa.ncnn.model.decoder.bin");
+        }
+        if (props.containsKey ("sherpa.ncnn.model.joiner.param")) {
+            c.joinerParam = props.getProperty ("sherpa.ncnn.model.joiner.param");
+        }
+        if (props.containsKey ("sherpa.ncnn.model.joiner.bin")) {
+            c.joinerBin = props.getProperty ("sherpa.ncnn.model.joiner.bin");
+        }
+        if (props.containsKey ("sherpa.ncnn.model.tokens")) {
+            c.tokens = props.getProperty ("sherpa.ncnn.model.tokens");
+        }
+        if (props.containsKey ("sherpa.ncnn.feature.sample.rate")) {
+            c.sampleRate = getFloat (props, "sherpa.ncnn.feature.sample.rate", 16000);
+        }
+        if (props.containsKey ("sherpa.ncnn.feature.dim")) {
+            c.featureDim = getInteger (props, "sherpa.ncnn.feature.dim", 80);
+        }
+        if (props.containsKey ("sherpa.ncnn.decoder.method")) {
+            c.decoderMethod = props.getProperty ("sherpa.ncnn.decoder.method");
+        }
+        if (props.containsKey ("sherpa.ncnn.decoder.active.paths")) {
+            c.activePaths = getInteger (props, "sherpa.ncnn.decoder.active.paths", 4);
+        }
+        if (props.containsKey ("sherpa.ncnn.asr.endpoint.enabled")) {
+            c.endpointEnabled = getBoolean (props,"sherpa.ncnn.asr.endpoint.enabled");
+        }
+        if (props.containsKey ("sherpa.ncnn.asr.rule1.min.trailing.silence")) {
+            c.r1Silence = getFloat (props, "sherpa.ncnn.asr.rule1.min.trailing.silence", 2.4f);
+        }
+        if (props.containsKey ("sherpa.ncnn.asr.rule2.min.trailing.silence")) {
+            c.r2Silence = getFloat (props, "sherpa.ncnn.asr.rule2.min.trailing.silence", 1.4f);
+        }
+        if (props.containsKey ("sherpa.ncnn.asr.rule3.min.utterance.length")) {
+            c.r3utterance = getFloat (props, "sherpa.ncnn.asr.rule3.min.utterance.length", 20);
+        }
+        if (props.containsKey ("sherpa.ncnn.asr.hot-words.file")) {
+            c.hotWordsFile = props.getProperty ("sherpa.ncnn.asr.hot-words.file");
+        }
+        if (props.containsKey ("sherpa.ncnn.asr.hot-words.score")) {
+            c.hotWordScore = getFloat (props, "sherpa.ncnn.asr.hot-words.score", 1.5f);
+        }
+
+        return c;
+    }
+
+    private static int getInteger (Properties props, String key, int defaultValue) {
+        String property = props.getProperty (key);
+        if (isEmpty (property)) {
+            return defaultValue;
+        }
+
+        try {
+            return Integer.parseInt (property.trim ());
+        } catch (Exception ex) {
+            return defaultValue;
+        }
+    }
+
+    private static float getFloat (Properties props, String key, float defaultValue) {
+        String property = props.getProperty (key);
+        if (isEmpty (property)) {
+            return defaultValue;
+        }
+
+        try {
+            return Float.parseFloat (property.trim ());
+        } catch (Exception ex) {
+            return defaultValue;
+        }
+    }
+
+    private static boolean getBoolean (Properties props, String key) {
+        String property = props.getProperty (key);
+        if (isEmpty (property)) {
+            return false;
+        }
+
+        try {
+            return Boolean.parseBoolean (property.trim ());
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    private static boolean isEmpty (String text) {
+        return text == null || text.trim ().isEmpty ();
     }
 }
